@@ -87,6 +87,8 @@ pub struct JwtToken {
     pub access_token: String,
     pub expires_in: i32,
     pub id_token: Option<String>,
+    // Absent from client_credentials responses (RFC 6749 §4.4.3).
+    #[serde(default)]
     pub refresh_token: String,
     pub token_type: String,
     #[serde(default)]
