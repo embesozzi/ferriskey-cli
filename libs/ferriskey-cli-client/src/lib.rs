@@ -1132,4 +1132,13 @@ mod tests {
             serde_json::from_str(r#"{"data":{"client_secret":"s3cr3t"}}"#).unwrap();
         assert_eq!(payload.into_secret(), "s3cr3t");
     }
+
+    #[test]
+    fn jwt_token_accepts_client_credentials_response_without_refresh_token() {
+        let token: JwtToken =
+            serde_json::from_str(r#"{"access_token":"a","token_type":"Bearer","expires_in":300}"#)
+                .unwrap();
+        assert_eq!(token.access_token, "a");
+        assert!(token.refresh_token.is_empty());
+    }
 }
